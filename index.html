@@ -3,315 +3,293 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CineVault">
   <title>CineVault</title>
   <style>
-    :root {
-      --text: #ffffff;
-      --subtext: #94a3b8;
-      --card: rgba(22, 27, 38, 0.85);
-      --border: rgba(255, 255, 255, 0.12);
-      --accent: #ec4899;
-      --star: #fbbf24;
-      --danger: #ef4444;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
     body {
-      color: #fff;
-      padding: env(safe-area-inset-top, 24px) 16px 110px 16px;
-      min-height: 100vh;
-      background-attachment: fixed;
-      transition: background 0.3s;
-    }
-
-    /* SFONDI */
-    body.neon {
       background-color: #0b0813;
-      background-image: 
-        radial-gradient(at 0% 10%, rgba(236, 72, 153, 0.45) 0, transparent 50%),
-        radial-gradient(at 100% 20%, rgba(139, 92, 246, 0.4) 0, transparent 50%),
-        radial-gradient(at 50% 90%, rgba(6, 182, 212, 0.35) 0, transparent 60%);
-      --accent: #ec4899;
-    }
-    body.sunset {
-      background-color: #120a1c;
-      background-image: 
-        radial-gradient(at 10% 10%, rgba(249, 115, 22, 0.5) 0, transparent 50%),
-        radial-gradient(at 90% 30%, rgba(217, 70, 239, 0.4) 0, transparent 50%),
-        radial-gradient(at 40% 95%, rgba(168, 85, 247, 0.45) 0, transparent 55%);
-      --accent: #f97316;
-    }
-    body.cinema {
-      background-color: #0d0608;
-      background-image: 
-        radial-gradient(at 90% 10%, rgba(225, 29, 72, 0.5) 0, transparent 50%),
-        radial-gradient(at 10% 40%, rgba(245, 158, 11, 0.35) 0, transparent 45%),
-        radial-gradient(at 70% 90%, rgba(159, 18, 57, 0.5) 0, transparent 55%);
-      --accent: #e11d48;
-    }
-    body.slate {
-      background-color: #0d1117;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.8) 0, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.35) 0, transparent 45%),
-        radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.95) 0, transparent 60%);
-      --accent: #2563eb;
-    }
-
-    header {
-      padding: 16px 0 10px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-    }
-    .header-btns {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .btn-header {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 6px 11px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
+      background-image: radial-gradient(at 0% 10%, rgba(236,72,153,0.45) 0, transparent 50%), radial-gradient(at 100% 20%, rgba(139,92,246,0.4) 0, transparent 50%);
+      background-attachment: fixed;
       color: #fff;
-      border: 1px solid var(--border);
-      cursor: pointer;
+      padding: env(safe-area-inset-top, 24px) 16px 100px 16px;
+      min-height: 100vh;
     }
-
-    /* Selettore Temi */
-    .themes {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      scrollbar-width: none;
-    }
-    .themes::-webkit-scrollbar { display: none; }
-    .theme-btn {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border);
-      color: var(--subtext);
-      padding: 7px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .theme-btn.active {
-      background: rgba(255, 255, 255, 0.25);
-      color: #fff;
-    }
-
-    /* Tabs */
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      border: 1px solid var(--border);
-    }
-    .tab {
-      background: transparent;
-      border: none;
-      color: var(--subtext);
-      padding: 9px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .tab.active {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-    }
-
-    /* Filtri */
-    .filters {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      scrollbar-width: none;
-    }
-    .filters::-webkit-scrollbar { display: none; }
-    .filter {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border);
-      color: var(--subtext);
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .filter.active {
-      background: #fff;
-      color: #000;
-      font-weight: 700;
-    }
-
-    /* Card */
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .card {
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card-title {
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .tag {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border);
-    }
-    .card-desc {
-      font-size: 13px;
-      color: var(--subtext);
-      line-height: 1.4;
-    }
-    .card-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 10px;
-      margin-top: 4px;
-    }
-    select.vote {
-      background: #000;
-      color: var(--star);
-      border: 1px solid var(--border);
-      padding: 5px 8px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .actions {
-      display: flex;
-      gap: 6px;
-    }
-    .btn-toggle {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn-del {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--danger);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Barra Basso */
-    .bottom-bar {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 20px) + 10px);
-      left: 16px;
-      right: 16px;
-      display: flex;
-      gap: 8px;
-      z-index: 50;
-    }
-    .btn-main {
-      flex: 1;
-      padding: 13px;
-      border-radius: 12px;
-      border: none;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .btn-add { background: var(--accent); color: #fff; }
-    .btn-copy { background: rgba(30, 41, 59, 0.95); color: #fff; border: 1px solid var(--border); }
-
-    /* Modali */
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      align-items: flex-end;
-      z-index: 100;
-    }
+    body.sunset { background-color: #120a1c; background-image: radial-gradient(at 10% 10%, rgba(249,115,22,0.5) 0, transparent 50%), radial-gradient(at 90% 30%, rgba(217,70,239,0.4) 0, transparent 50%); }
+    body.cinema { background-color: #0d0608; background-image: radial-gradient(at 90% 10%, rgba(225,29,72,0.5) 0, transparent 50%), radial-gradient(at 10% 40%, rgba(245,158,11,0.35) 0, transparent 45%); }
+    body.slate { background-color: #0d1117; background-image: radial-gradient(at 0% 0%, rgba(30,41,59,0.8) 0, transparent 50%), radial-gradient(at 100% 0%, rgba(37,99,235,0.35) 0, transparent 45%); }
+    
+    header { padding: 16px 0; display: flex; justify-content: space-between; align-items: center; }
+    h1 { font-size: 24px; font-weight: 700; }
+    .btn-h { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    
+    .row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
+    .row::-webkit-scrollbar { display: none; }
+    .chip { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); color: #94a3b8; padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .chip.active { background: rgba(255,255,255,0.25); color: #fff; }
+    
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: rgba(0,0,0,0.4); padding: 4px; border-radius: 12px; margin-bottom: 12px; }
+    .tab { background: transparent; border: none; color: #94a3b8; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .tab.active { background: rgba(255,255,255,0.2); color: #fff; }
+    
+    .card { background: rgba(22,27,38,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .title { font-size: 16px; font-weight: 700; }
+    .tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); }
+    .desc { font-size: 13px; color: #94a3b8; line-height: 1.4; margin-bottom: 10px; }
+    .card-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; }
+    
+    select.vote { background: #000; color: #fbbf24; border: 1px solid rgba(255,255,255,0.2); padding: 5px 8px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+    .btn-act { background: #ec4899; color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-del { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
+    .bot-bar { position: fixed; bottom: calc(env(safe-area-inset-bottom, 20px) + 10px); left: 16px; right: 16px; display: flex; gap: 8px; z-index: 50; }
+    .btn-b { flex: 1; padding: 14px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    .btn-add { background: #ec4899; color: #fff; }
+    .btn-copy { background: #1e293b; color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+    
+    .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: none; align-items: flex-end; z-index: 100; }
     .modal.open { display: flex; }
-    .modal-box {
-      background: #181b24;
-      border-top: 1px solid var(--border);
-      border-radius: 20px 20px 0 0;
-      width: 100%;
-      padding: 20px 16px calc(env(safe-area-inset-bottom, 20px) + 16px) 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .modal-box { background: #181b24; border-top: 1px solid rgba(255,255,255,0.2); border-radius: 20px 20px 0 0; width: 100%; padding: 20px 16px calc(env(safe-area-inset-bottom, 20px) + 20px) 16px; display: flex; flex-direction: column; gap: 12px; }
+    .input { background: #000; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 12px; border-radius: 10px; font-size: 15px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CineVault</h1>
+    <div style="display:flex; gap:6px;">
+      <button class="btn-h" onclick="openModal('modalBackup')">💾 Backup</button>
+    </div>
+  </header>
+
+  <div class="row">
+    <button class="chip active" onclick="setBg('', this)">⚡ Neon</button>
+    <button class="chip" onclick="setBg('sunset', this)">🌅 Sunset</button>
+    <button class="chip" onclick="setBg('cinema', this)">🍿 Cinema</button>
+    <button class="chip" onclick="setBg('slate', this)">🌌 Slate</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tbW" onclick="setTab('watchlist')">Da Vedere</button>
+    <button class="tab" id="tbD" onclick="setTab('watched')">Visti & Votati</button>
+  </div>
+
+  <div class="row" id="pFilters">
+    <button class="chip active" onclick="setPlat('Tutte', this)">Tutte</button>
+    <button class="chip" onclick="setPlat('HBO Max', this)">HBO Max</button>
+    <button class="chip" onclick="setPlat('Sky', this)">Sky / NOW</button>
+    <button class="chip" onclick="setPlat('Apple TV+', this)">Apple TV+</button>
+    <button class="chip" onclick="setPlat('Disney+', this)">Disney+</button>
+    <button class="chip" onclick="setPlat('Prime Video', this)">Prime Video</button>
+    <button class="chip" onclick="setPlat('Netflix', this)">Netflix</button>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="bot-bar">
+    <button class="btn-b btn-copy" onclick="copyData()">Copia per Chat</button>
+    <button class="btn-b btn-add" onclick="openModal('modalAdd')">+ Aggiungi</button>
+  </div>
+
+  <!-- Modal Aggiungi -->
+  <div class="modal" id="modalAdd" onclick="closeModalBg(event, 'modalAdd')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 style="font-size: 17px;">Aggiungi Titolo</h3>
+      <input type="text" id="inTitle" class="input" placeholder="Titolo" />
+      <select id="inPlat" class="input">
+        <option value="HBO Max">HBO Max</option>
+        <option value="Sky">Sky / NOW</option>
+        <option value="Apple TV+">Apple TV+</option>
+        <option value="Disney+">Disney+</option>
+        <option value="Prime Video">Prime Video</option>
+        <option value="Netflix">Netflix</option>
+        <option value="Altro">Altro</option>
+      </select>
+      <select id="inType" class="input">
+        <option value="Miniserie">Miniserie</option>
+        <option value="Serie">Serie TV</option>
+        <option value="Film">Film</option>
+      </select>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-b btn-copy" onclick="closeM('modalAdd')">Annulla</button>
+        <button class="btn-b btn-add" onclick="saveItem()">Salva</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Backup -->
+  <div class="modal" id="modalBackup" onclick="closeModalBg(event, 'modalBackup')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 style="font-size: 17px;">Backup Dati</h3>
+      <button class="input" style="cursor:pointer;" onclick="downloadBackup()">📤 Scarica File Backup</button>
+      <label class="input" style="cursor:pointer; text-align:center; display:block;">
+        📥 Carica File Backup
+        <input type="file" accept=".json" style="display:none;" onchange="loadBackup(event)" />
+      </label>
+      <button class="input" style="color:#ef4444; cursor:pointer;" onclick="resetAll()">🔄 Ripristina Default</button>
+      <button class="btn-b btn-copy" onclick="closeM('modalBackup')">Chiudi</button>
+    </div>
+  </div>
+
+  <script>
+    var defaults = [
+      { id: 1, title: "The Night Of", plat: "HBO Max", type: "Miniserie", desc: "Tensione claustrofobica. Un ragazzo accusato di omicidio.", status: "watchlist", rating: "" },
+      { id: 2, title: "Omicidio a Easttown", plat: "HBO Max", type: "Miniserie", desc: "Detective con Kate Winslet, ritmo serrato.", status: "watchlist", rating: "" },
+      { id: 3, title: "Sicario", plat: "Prime Video", type: "Film", desc: "Tensione millimetrica al confine USA-Messico.", status: "watchlist", rating: "" },
+      { id: 4, title: "The Bear", plat: "Disney+", type: "Serie", desc: "Adrenalina pura e ritmo forsennato nella cucina di Chicago.", status: "watchlist", rating: "" },
+      { id: 5, title: "Ted Lasso", plat: "Apple TV+", type: "Serie", desc: "Commedia brillante, cuore e motivazione.", status: "watched", rating: "9" },
+      { id: 6, title: "Shrinking", plat: "Apple TV+", type: "Serie", desc: "Dagli autori di Scrubs, brillante e toccante.", status: "watched", rating: "9" },
+      { id: 7, title: "Le Mans '66", plat: "Disney+", type: "Film", desc: "Cameratismo, sfide leggendarie e motori.", status: "watched", rating: "8.5" }
+    ];
+
+    var db = defaults;
+    try {
+      var s = localStorage.getItem("cv_clean_db");
+      if (s) {
+        var p = JSON.parse(s);
+        if (Array.isArray(p) && p.length > 0) db = p;
+      }
+    } catch(e) {}
+
+    var curTab = "watchlist";
+    var curPlat = "Tutte";
+
+    function store() {
+      try { localStorage.setItem("cv_clean_db", JSON.stringify(db)); } catch(e) {}
+      draw();
     }
-    .input {
-      background: #000;
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 15px;
-      width: 100%;
+
+    function setBg(cls, btn) {
+      document.body.className = cls;
+      document.querySelectorAll(".chip").forEach(function(c){ if(c.parentElement.children[0] === document.querySelectorAll(".chip")[0]) c.classList.remove("active"); });
+      btn.classList.add("active");
     }
-    .backup-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 6px;
+
+    function setTab(t) {
+      curTab = t;
+      document.getElementById("tbW").className = t === "watchlist" ? "tab active" : "tab";
+      document.getElementById("tbD").className = t === "watched" ? "tab active" : "tab";
+      draw();
     }
-    .btn-backup {
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.08);
-      color
+
+    function setPlat(p, btn) {
+      curPlat = p;
+      document.querySelectorAll("#pFilters .chip").forEach(function(c){ c.classList.remove("active"); });
+      btn.classList.add("active");
+      draw();
+    }
+
+    function setRate(id, val) {
+      for (var i = 0; i < db.length; i++) {
+        if (db[i].id === id) {
+          db[i].rating = val;
+          if (val !== "" && db[i].status === "watchlist") db[i].status = "watched";
+          break;
+        }
+      }
+      store();
+    }
+
+    function toggle(id) {
+      for (var i = 0; i < db.length; i++) {
+        if (db[i].id === id) {
+          db[i].status = db[i].status === "watchlist" ? "watched" : "watchlist";
+          break;
+        }
+      }
+      store();
+    }
+
+    function del(id) {
+      var t = null;
+      for (var i = 0; i < db.length; i++) { if (db[i].id === id) { t = db[i]; break; } }
+      if (!t) return;
+      if (confirm("Vuoi eliminare \"" + t.title + "\"?")) {
+        db = db.filter(function(x){ return x.id !== id; });
+        store();
+      }
+    }
+
+    function openModal(id) { document.getElementById(id).className = "modal open"; }
+    function closeM(id) { document.getElementById(id).className = "modal"; }
+    function closeModalBg(e, id) { if (e.target.id === id) closeM(id); }
+
+    function saveItem() {
+      var t = document.getElementById("inTitle").value.trim();
+      if (!t) { alert("Inserisci un titolo."); return; }
+      var p = document.getElementById("inPlat").value;
+      var type = document.getElementById("inType").value;
+      db.unshift({ id: Date.now(), title: t, plat: p, type: type, desc: "Aggiunto manualmente", status: curTab, rating: curTab === "watched" ? "8" : "" });
+      document.getElementById("inTitle").value = "";
+      closeM("modalAdd");
+      store();
+    }
+
+    function downloadBackup() {
+      var a = document.createElement("a");
+      a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+      a.download = "cinevault_backup.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function loadBackup(ev) {
+      var f = ev.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function(e) {
+        try {
+          var data = JSON.parse(e.target.result);
+          if (Array.isArray(data)) { db = data; store(); closeM("modalBackup"); alert("Backup caricato con successo!"); }
+        } catch(err) { alert("File non valido."); }
+      };
+      r.readAsText(f);
+    }
+
+    function resetAll() {
+      if (confirm("Vuoi azzerare e ricaricare i titoli iniziali?")) {
+        db = defaults;
+        store();
+        closeM("modalBackup");
+      }
+    }
+
+    function copyData() {
+      var s = db.map(function(i){ return i.title + " (" + i.plat + ") - " + (i.status === 'watched' ? 'Voto: ' + (i.rating || 'ND') : 'Da vedere'); }).join("\n");
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(s).then(function(){ alert("Lista copiata negli appunti!"); });
+      }
+    }
+
+    function draw() {
+      var c = document.getElementById("list");
+      c.innerHTML = "";
+      var f = db.filter(function(i){
+        return i.status === curTab && (curPlat === "Tutte" || i.plat.toLowerCase().indexOf(curPlat.toLowerCase()) !== -1);
+      });
+      if (f.length === 0) {
+        c.innerHTML = "<div style='text-align:center; color:#94a3b8; padding:30px 0;'>Nessun titolo trovato.</div>";
+        return;
+      }
+      var scores = ["", "10", "9.5", "9", "8.5", "8", "7.5", "7", "6.5", "6", "5"];
+      for (var i = 0; i < f.length; i++) {
+        var it = f[i];
+        var d = document.createElement("div");
+        d.className = "card";
+        var opt = "";
+        for (var s = 0; s < scores.length; s++) {
+          opt += "<option value='" + scores[s] + "'" + (String(it.rating) === scores[s] ? " selected" : "") + ">" + (scores[s] === "" ? "-" : scores[s] + " ★") + "</option>";
+        }
+        d.innerHTML = 
+          "<div class='card-head'><div><div class='title'>" + it.title + "</div><div style='font-size:12px;color:#94a3b8;'>" + it.type + "</div></div><span class='tag'>" + it.plat + "</span></div>" +
+          "<div class='desc'>" + it.desc + "</div>" +
+          "<div class='card-foot'><div style='display:flex;align-items:center;gap:6px;'><label style='font-size:12px;color:#94a3b8;'>Voto:</label><select class='vote' onchange='setRate(" + it.id + ", this.value)'>" + opt + "</select></div><div style='display:flex;gap:6px;'><button class='btn-act' onclick='toggle(" + it.id + ")'>" + (it.status === 'watchlist' ? 'Segna Visto' : 'Da Vedere') + "</button><button class='btn-del' onclick='del(" + it.id + ")'>🗑️</button></div></div>";
+        c.appendChild(d);
+      }
+    }
+
+    draw();
+  </script>
+</body>
+</html>

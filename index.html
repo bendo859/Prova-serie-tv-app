@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CineVault">
   <title>CineVault</title>
   <style>
     :root {
@@ -23,7 +26,7 @@
     }
     body {
       color: #fff;
-      padding: env(safe-area-inset-top, 24px) 16px 100px 16px;
+      padding: env(safe-area-inset-top, 24px) 16px 110px 16px;
       min-height: 100vh;
       background-attachment: fixed;
       transition: background 0.3s;
@@ -73,13 +76,20 @@
       font-size: 24px;
       font-weight: 700;
     }
-    .badge {
+    .header-btns {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .btn-header {
       background: rgba(255, 255, 255, 0.1);
-      padding: 6px 10px;
+      padding: 6px 11px;
       border-radius: 10px;
       font-size: 12px;
-      color: var(--subtext);
+      font-weight: 600;
+      color: #fff;
       border: 1px solid var(--border);
+      cursor: pointer;
     }
 
     /* Selettore Temi */
@@ -264,7 +274,7 @@
     .btn-add { background: var(--accent); color: #fff; }
     .btn-copy { background: rgba(30, 41, 59, 0.95); color: #fff; border: 1px solid var(--border); }
 
-    /* Modal */
+    /* Modali */
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -293,270 +303,15 @@
       font-size: 15px;
       width: 100%;
     }
-  </style>
-</head>
-<body class="neon">
-
-  <header>
-    <div>
-      <h1>I Miei Titoli</h1>
-      <div style="font-size: 11px; color: var(--subtext)">Gestore Serie & Film</div>
-    </div>
-    <span class="badge" id="countBadge">0 titoli</span>
-  </header>
-
-  <!-- Temi -->
-  <div class="themes">
-    <button class="theme-btn active" onclick="pickTheme('neon', this)">⚡ Neon Cyber</button>
-    <button class="theme-btn" onclick="pickTheme('sunset', this)">🌅 Retro Sunset</button>
-    <button class="theme-btn" onclick="pickTheme('cinema', this)">🍿 Cinema Red</button>
-    <button class="theme-btn" onclick="pickTheme('slate', this)">🌌 Deep Slate</button>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" id="tabWatch" onclick="switchTab('watchlist')">Da Vedere</button>
-    <button class="tab" id="tabDone" onclick="switchTab('watched')">Visti & Votati</button>
-  </div>
-
-  <!-- Filtro Piattaforme -->
-  <div class="filters" id="platFilters">
-    <button class="filter active" onclick="pickPlat('Tutte', this)">Tutte</button>
-    <button class="filter" onclick="pickPlat('HBO Max', this)">HBO Max</button>
-    <button class="filter" onclick="pickPlat('Sky', this)">Sky / NOW</button>
-    <button class="filter" onclick="pickPlat('Apple TV+', this)">Apple TV+</button>
-    <button class="filter" onclick="pickPlat('Disney+', this)">Disney+</button>
-    <button class="filter" onclick="pickPlat('Prime Video', this)">Prime Video</button>
-    <button class="filter" onclick="pickPlat('Netflix', this)">Netflix</button>
-  </div>
-
-  <!-- Elenco -->
-  <div class="list" id="cardList"></div>
-
-  <!-- Bottoni Flottanti -->
-  <div class="bottom-bar">
-    <button class="btn-main btn-copy" onclick="copyList()">Copia per Chat</button>
-    <button class="btn-main btn-add" onclick="showModal()">+ Aggiungi</button>
-  </div>
-
-  <!-- Modal Aggiungi -->
-  <div class="modal" id="modalEl" onclick="hideModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <h3 style="font-size: 17px; font-weight: 700;">Aggiungi Titolo</h3>
-      
-      <input type="text" id="mTitle" class="input" placeholder="Titolo (es. Mare of Easttown)" />
-
-      <select id="mPlat" class="input">
-        <option value="HBO Max">HBO Max</option>
-        <option value="Sky">Sky / NOW</option>
-        <option value="Apple TV+">Apple TV+</option>
-        <option value="Disney+">Disney+</option>
-        <option value="Prime Video">Prime Video</option>
-        <option value="Netflix">Netflix</option>
-      </select>
-
-      <select id="mType" class="input">
-        <option value="Miniserie">Miniserie</option>
-        <option value="Serie">Serie TV</option>
-        <option value="Film">Film</option>
-      </select>
-
-      <div style="display: flex; gap: 8px; margin-top: 6px;">
-        <button class="btn-main btn-copy" onclick="closeModal()">Annulla</button>
-        <button class="btn-main btn-add" onclick="saveTitle()">Salva</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    var db = [
-      { id: 1, title: "The Night Of", plat: "HBO Max", type: "Miniserie", desc: "Tensione claustrofobica. Un ragazzo accusato di omicidio a Manhattan.", status: "watchlist", rating: "" },
-      { id: 2, title: "Omicidio a Easttown", plat: "HBO Max", type: "Miniserie", desc: "Detective di provincia con Kate Winslet, ritmo serrato.", status: "watchlist", rating: "" },
-      { id: 3, title: "Sicario", plat: "Prime Video", type: "Film", desc: "Tensione millimetrica al confine USA-Messico.", status: "watchlist", rating: "" },
-      { id: 4, title: "The Bear", plat: "Disney+", type: "Serie", desc: "Adrenalina pura e ritmo forsennato nella cucina di Chicago.", status: "watchlist", rating: "" },
-      { id: 5, title: "Ted Lasso", plat: "Apple TV+", type: "Serie", desc: "Commedia brillante, cuore e motivazione.", status: "watched", rating: "9" },
-      { id: 6, title: "Shrinking", plat: "Apple TV+", type: "Serie", desc: "Ideata dagli stessi autori di Scrubs, brillante e toccante.", status: "watched", rating: "9" },
-      { id: 7, title: "Le Mans '66", plat: "Disney+", type: "Film", desc: "Cameratismo, sfide leggendarie e motori.", status: "watched", rating: "8.5" }
-    ];
-
-    var currentTab = "watchlist";
-    var currentPlat = "Tutte";
-
-    // Lettura iniziale protetta
-    try {
-      var saved = localStorage.getItem("cine_db_v2");
-      if (saved) {
-        var parsed = JSON.parse(saved);
-        if (parsed && parsed.length > 0) db = parsed;
-      }
-    } catch(e) {}
-
-    function updateStorage() {
-      try { localStorage.setItem("cine_db_v2", JSON.stringify(db)); } catch(e) {}
-      render();
+    .backup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
     }
-
-    function pickTheme(th, btn) {
-      document.body.className = th;
-      document.querySelectorAll(".theme-btn").forEach(function(b){ b.classList.remove("active"); });
-      btn.classList.add("active");
-    }
-
-    function switchTab(t) {
-      currentTab = t;
-      document.getElementById("tabWatch").className = t === "watchlist" ? "tab active" : "tab";
-      document.getElementById("tabDone").className = t === "watched" ? "tab active" : "tab";
-      render();
-    }
-
-    function pickPlat(p, btn) {
-      currentPlat = p;
-      document.querySelectorAll(".filter").forEach(function(b){ b.classList.remove("active"); });
-      btn.classList.add("active");
-      render();
-    }
-
-    function setRating(id, val) {
-      for (var i = 0; i < db.length; i++) {
-        if (db[i].id === id) {
-          db[i].rating = val;
-          if (val !== "" && db[i].status === "watchlist") {
-            db[i].status = "watched";
-          }
-          break;
-        }
-      }
-      updateStorage();
-    }
-
-    function toggleStatus(id) {
-      for (var i = 0; i < db.length; i++) {
-        if (db[i].id === id) {
-          db[i].status = db[i].status === "watchlist" ? "watched" : "watchlist";
-          break;
-        }
-      }
-      updateStorage();
-    }
-
-    function removeTitle(id) {
-      var it = null;
-      for (var i = 0; i < db.length; i++) {
-        if (db[i].id === id) { it = db[i]; break; }
-      }
-      if (!it) return;
-      if (confirm("Vuoi eliminare \"" + it.title + "\"?")) {
-        db = db.filter(function(x){ return x.id !== id; });
-        updateStorage();
-      }
-    }
-
-    function showModal() {
-      document.getElementById("mTitle").value = "";
-      document.getElementById("modalEl").className = "modal open";
-    }
-
-    function closeModal() {
-      document.getElementById("modalEl").className = "modal";
-    }
-
-    function hideModal(e) {
-      if (e.target.id === "modalEl") closeModal();
-    }
-
-    function saveTitle() {
-      var t = document.getElementById("mTitle").value.trim();
-      if (!t) { alert("Inserisci un titolo."); return; }
-      var p = document.getElementById("mPlat").value;
-      var type = document.getElementById("mType").value;
-
-      db.unshift({
-        id: Date.now(),
-        title: t,
-        plat: p,
-        type: type,
-        desc: "Aggiunto manualmente",
-        status: currentTab,
-        rating: currentTab === "watched" ? "8" : ""
-      });
-
-      closeModal();
-      updateStorage();
-    }
-
-    function copyList() {
-      var txt = db.map(function(i){
-        return i.title + " (" + i.plat + ") - " + (i.status === 'watched' ? 'Voto: ' + (i.rating || 'ND') : 'Da vedere');
-      }).join("\n");
-      
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(txt).then(function(){
-          alert("Lista copiata negli appunti! Incollala qui in chat.");
-        });
-      } else {
-        alert("Copia manuale non supportata.");
-      }
-    }
-
-    function render() {
-      var container = document.getElementById("cardList");
-      container.innerHTML = "";
-
-      var filtered = db.filter(function(item){
-        var matchTab = item.status === currentTab;
-        var matchPlat = currentPlat === "Tutte" || item.plat.toLowerCase().indexOf(currentPlat.toLowerCase()) !== -1;
-        return matchTab && matchPlat;
-      });
-
-      document.getElementById("countBadge").innerText = filtered.length + " titoli";
-
-      if (filtered.length === 0) {
-        container.innerHTML = "<div style='text-align:center; color:#94a3b8; padding:40px 0; font-size:14px;'>Nessun titolo trovato in questa sezione.</div>";
-        return;
-      }
-
-      var scores = ["", "10", "9.5", "9", "8.5", "8", "7.5", "7", "6.5", "6", "5"];
-
-      for (var i = 0; i < filtered.length; i++) {
-        var it = filtered[i];
-        var card = document.createElement("div");
-        card.className = "card";
-
-        var opts = "";
-        for (var s = 0; s < scores.length; s++) {
-          var val = scores[s];
-          var label = val === "" ? "-" : val + " ★";
-          var sel = String(it.rating) === val ? " selected" : "";
-          opts += "<option value='" + val + "'" + sel + ">" + label + "</option>";
-        }
-
-        var btnText = it.status === "watchlist" ? "Segna Visto" : "Da Vedere";
-
-        card.innerHTML = 
-          "<div class='card-top'>" +
-            "<div>" +
-              "<div class='card-title'>" + it.title + "</div>" +
-              "<div style='font-size:12px; color:#94a3b8; margin-top:2px;'>" + it.type + "</div>" +
-            "</div>" +
-            "<span class='tag'>" + it.plat + "</span>" +
-          "</div>" +
-          "<div class='card-desc'>" + it.desc + "</div>" +
-          "<div class='card-bottom'>" +
-            "<div style='display:flex; align-items:center; gap:6px;'>" +
-              "<label style='font-size:12px; color:#94a3b8;'>Voto:</label>" +
-              "<select class='vote' onchange='setRating(" + it.id + ", this.value)'>" + opts + "</select>" +
-            "</div>" +
-            "<div class='actions'>" +
-              "<button class='btn-toggle' onclick='toggleStatus(" + it.id + ")'>" + btnText + "</button>" +
-              "<button class='btn-del' onclick='removeTitle(" + it.id + ")'>🗑️</button>" +
-            "</div>" +
-          "</div>";
-
-        container.appendChild(card);
-      }
-    }
-
-    render();
-  </script>
-</body>
-</html>
+    .btn-backup {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      color

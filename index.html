@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" style="background-color: #0b0813;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -11,12 +11,12 @@
     :root {
       --text: #f8fafc;
       --subtext: #94a3b8;
-      --card-bg: rgba(22, 27, 38, 0.72);
+      --card-bg: rgba(22, 27, 38, 0.75);
       --card-border: rgba(255, 255, 255, 0.1);
       --border: rgba(255, 255, 255, 0.12);
       --modal-bg: #151924;
-      --accent: #3b82f6;
-      --accent-glow: rgba(59, 130, 246, 0.35);
+      --accent: #ec4899;
+      --accent-glow: rgba(236, 72, 153, 0.35);
       --star: #fbbf24;
       --danger: #ef4444;
       --danger-bg: rgba(239, 68, 68, 0.15);
@@ -31,14 +31,15 @@
     }
 
     body {
-      color: var(--text);
+      background-color: #0b0813;
+      color: #f8fafc;
       padding: env(safe-area-inset-top, 20px) 16px env(safe-area-inset-bottom, 20px) 16px;
       min-height: 100vh;
       background-attachment: fixed;
-      transition: background 0.4s ease;
+      transition: background 0.3s ease;
     }
 
-    /* --- TEMI DI SFONDO --- */
+    /* Temi */
     body.theme-neon {
       background-color: #0b0813;
       background-image: 
@@ -83,7 +84,6 @@
       --modal-bg: #151924;
     }
 
-    /* Header */
     header {
       padding: 24px 0 16px 0;
       display: flex;
@@ -94,38 +94,19 @@
       font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-icon {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 7px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      cursor: pointer;
+      color: #fff;
     }
     .badge-count {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      padding: 7px 12px;
+      padding: 6px 12px;
       border-radius: 12px;
       font-size: 13px;
       color: var(--subtext);
       border: 1px solid var(--border);
     }
 
-    /* Striscia di selezione rapida del tema */
     .theme-bar {
       display: flex;
       gap: 6px;
@@ -136,31 +117,29 @@
     }
     .theme-bar::-webkit-scrollbar { display: none; }
     .theme-chip {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       color: var(--subtext);
-      padding: 6px 12px;
+      padding: 7px 12px;
       border-radius: 10px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s ease;
     }
     .theme-chip.active {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.22);
       color: #fff;
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
-    /* Tabs */
     .tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       padding: 4px;
@@ -177,14 +156,12 @@
       font-weight: 600;
       font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
     }
     .tab-btn.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: var(--text);
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
     }
 
-    /* Piattaforme */
     .filters {
       display: flex;
       gap: 8px;
@@ -214,7 +191,6 @@
       font-weight: 600;
     }
 
-    /* Lista schede */
     .card-list {
       display: flex;
       flex-direction: column;
@@ -231,7 +207,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
     }
     .card-header {
       display: flex;
@@ -242,7 +218,6 @@
     .card-title {
       font-size: 17px;
       font-weight: 600;
-      letter-spacing: -0.2px;
     }
     .platform-tag {
       font-size: 11px;
@@ -263,7 +238,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 12px;
       margin-top: 4px;
       gap: 8px;
@@ -296,4 +271,131 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      
+    }
+    .btn-delete {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .floating-add {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 20px) + 16px);
+      left: 16px;
+      right: 16px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .btn-bottom {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: flex-end;
+      z-index: 100;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: var(--modal-bg);
+      border-top: 1px solid var(--border);
+      border-radius: 22px 22px 0 0;
+      width: 100%;
+      padding: 24px 20px calc(env(safe-area-inset-bottom, 20px) + 20px) 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-title { font-size: 19px; font-weight: 700; color: #fff; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 12px;
+      color: var(--subtext);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .input-field, .select-field {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      width: 100%;
+    }
+    .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
+  </style>
+</head>
+<body class="theme-neon">
+
+  <header>
+    <div>
+      <h1>I Miei Titoli</h1>
+      <div style="font-size: 12px; color: var(--subtext); margin-top: 2px;">Database Personale</div>
+    </div>
+    <span class="badge-count" id="totalCount">0 titoli</span>
+  </header>
+
+  <!-- Selettore rapido sfondo -->
+  <div class="theme-bar">
+    <button class="theme-chip active" id="chip-theme-neon" onclick="setTheme('theme-neon')">⚡ Neon</button>
+    <button class="theme-chip" id="chip-theme-sunset" onclick="setTheme('theme-sunset')">🌅 Sunset</button>
+    <button class="theme-chip" id="chip-theme-cinema" onclick="setTheme('theme-cinema')">🍿 Cinema</button>
+    <button class="theme-chip" id="chip-theme-slate" onclick="setTheme('theme-slate')">🌌 Slate</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabWatchlist" onclick="setTab('watchlist')">Da Vedere</button>
+    <button class="tab-btn" id="tabWatched" onclick="setTab('watched')">Visti & Votati</button>
+  </div>
+
+  <div class="filters" id="platformFilters">
+    <button class="filter-btn active" onclick="setPlatformFilter('Tutte')">Tutte</button>
+    <button class="filter-btn" onclick="setPlatformFilter('HBO Max')">HBO Max</button>
+    <button class="filter-btn" onclick="setPlatformFilter('Sky / NOW')">Sky / NOW</button>
+    <button class="filter-btn" onclick="setPlatformFilter('Apple TV+')">Apple TV+</button>
+    <button class="filter-btn" onclick="setPlatformFilter('Disney+')">Disney+</button>
+    <button class="filter-btn" onclick="setPlatformFilter('Prime Video')">Prime Video</button>
+    <button class="filter-btn" onclick="setPlatformFilter('Netflix')">Netflix</button>
+  </div>
+
+  <div class="card-list" id="mediaList"></div>
+
+  <div class="floating-add">
+    <button class="btn-bottom btn-secondary" onclick="exportData()">Copia per Chat</button>
+    <button class="btn-bottom btn-primary" onclick="openAddModal()">+ Aggiungi</button>
+  </div>
+
+  <!-- Modal Aggiungi Titolo -->
+  <div class="modal-overlay" id="addModal" onclick
